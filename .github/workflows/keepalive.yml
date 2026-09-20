@@ -1,0 +1,36 @@
+name: Keep Server Alive
+
+on:
+  schedule:
+    # Runs every 10 minutes
+    - cron: '*/10 * * * *'
+  workflow_dispatch:  # Allows you to run it manually from GitHub UI
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Ping the target URL
+        run: |
+          echo "========================================"
+          echo "Ping started at: $(date -u)"
+          echo "Target: ${{ secrets.TARGET_URL }}"
+          echo "========================================"
+
+          # Strong refresh-style request
+          curl -s -o /dev/null -w "HTTP Status: %{http_code}\nTotal time: %{time_total}s\n" \
+            -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" \
+            -H "Cache-Control: no-cache, no-store, must-revalidate" \
+            -H "Pragma: no-cache" \
+            -H "Expires: 0" \
+            --max-time 45 \
+            --retry 2 \
+            --retry-delay 3 \
+            --location \
+            "${{ secrets.TARGET_URL }}"
+
+          echo "========================================"
+          echo "Ping finished at: $(date -u)"
+          echo "========================================"
