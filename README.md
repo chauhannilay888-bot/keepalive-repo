@@ -15,7 +15,7 @@ It helps keep free-tier servers (Render, Railway, Streamlit Cloud, etc.) from sl
 2. Go to your repository → **Settings** → **Secrets and variables** → **Actions**.
 3. Click **New repository secret**.
 4. Name: `TARGET_URL`
-5. Value: your full URL (example: `https://backend-lszx.onrender.com`)
+5. Value: your full URL (example: `https://xyz.onrender.com`)
 6. Save the secret.
 
 That’s it. The workflow will start running automatically.
