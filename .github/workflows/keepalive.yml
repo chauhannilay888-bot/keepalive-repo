@@ -3,7 +3,7 @@ name: Keep Server Alive
 on:
   schedule:
     # Runs every 10 minutes at odd minutes (avoids high-load times)
-    - cron: '7,17,27,37,47,57 * * * *'
+    - cron: '3,13,23,33,43,53 * * * *'
   workflow_dispatch:  # Allows manual run from GitHub UI
 
 jobs:
